@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io/ioutil"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/cloudformation"
@@ -121,16 +120,6 @@ func ApplyStack(c *cli.Context) error {
 	fmt.Println(fmt.Sprintf("StackId: %s", stackId))
 
 	return nil
-}
-
-func readTemplateBodyFromFile(path string) (*string, error) {
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	template := string(data)
-	return &template, nil
 }
 
 func findStack(client *cloudformation.Client, stackName string, statusFilter []types.StackStatus) (*types.StackSummary, error) {

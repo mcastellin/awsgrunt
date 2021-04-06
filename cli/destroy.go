@@ -33,7 +33,8 @@ func DestroyStack(c *cli.Context) error {
 		if err != nil {
 			return err
 		} else if updatableCheck == nil {
-			return fmt.Errorf("The stack %s exists with status [%s] and cannot be deleted. Aborting", cfg.StackName, stackInfo.StackStatus)
+			return fmt.Errorf("The stack %s exists with status [%s] and cannot be deleted. Aborting",
+				cfg.StackName, stackInfo.StackStatus)
 		}
 	} else {
 		return fmt.Errorf("Stack with name %s does not exists. Aborting.", cfg.StackName)

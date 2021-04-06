@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
 
 	cli2 "awsgrunt/cli"
@@ -18,6 +18,11 @@ func main() {
 				Aliases: []string{"c"},
 				Usage:   "Tests the configuration",
 				Action:  cli2.TestConfigurationAction,
+			},
+			{
+				Name:   "validate",
+				Usage:  "Validates all configured cloudformation templates",
+				Action: cli2.ValidateTemplates,
 			},
 			{
 				Name:    "upload",
@@ -41,6 +46,7 @@ func main() {
 
 	err := app.Run(os.Args)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
