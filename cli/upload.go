@@ -1,19 +1,21 @@
 package cli
 
 import (
+	grunts3 "awsgrunt/s3"
 	"context"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/urfave/cli/v2"
-
-	grunts3 "awsgrunt/s3"
 )
 
 func UploadTemplatesToS3(c *cli.Context) error {
 
 	cfg, err := ParseAWSGruntOptions()
+	if err != nil {
+		return err
+	}
 
 	awscfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {

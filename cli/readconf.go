@@ -10,9 +10,11 @@ import (
 )
 
 type GruntConf struct {
-	BucketName    string   `yaml:"BucketName"`
-	StackName     string   `yaml:"StackName"`
-	TemplateFiles []string `yaml:"TemplateFiles"`
+	BucketName        string            `yaml:"BucketName"`
+	StackTemplateFile string            `yaml:"StackTemplateFile"`
+	StackName         string            `yaml:"StackName"`
+	TemplateFiles     []string          `yaml:"TemplateFiles"`
+	Parameters        map[string]string `yaml:"Parameters"`
 }
 
 func (conf *GruntConf) Parse(data []byte) error {
@@ -31,9 +33,13 @@ func ParseAWSGruntOptions() (*GruntConf, error) {
 
 	var config GruntConf
 	err = config.Parse(data)
-
 	if err != nil {
 		return nil, err
+	}
+
+	//TODO: should validate the file is actually there
+	if config.StackTemplateFile == "" {
+		config.StackTemplateFile = "main.yaml"
 	}
 	return &config, nil
 }

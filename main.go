@@ -25,6 +25,12 @@ func main() {
 				Usage:   "Uploads the configured template files to the S3 bucket",
 				Action:  cli2.UploadTemplatesToS3,
 			},
+			{
+				Name:    "apply",
+				Aliases: []string{"a"},
+				Usage:   "Creates or updates the cloudformation stack",
+				Action:  cli2.ApplyStack,
+			},
 		},
 	}
 
