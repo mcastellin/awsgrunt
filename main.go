@@ -20,9 +20,10 @@ func main() {
 				Action:  cli2.TestConfigurationAction,
 			},
 			{
-				Name:   "validate",
-				Usage:  "Validates all configured cloudformation templates",
-				Action: cli2.ValidateTemplates,
+				Name:    "validate",
+				Aliases: []string{"v"},
+				Usage:   "Validates all configured cloudformation templates",
+				Action:  cli2.ValidateTemplates,
 			},
 			{
 				Name:    "upload",

@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"awsgrunt/utils"
 	"context"
 	"fmt"
 
@@ -39,7 +40,7 @@ func ValidateTemplates(c *cli.Context) error {
 }
 
 func validateTemplateFile(client *cloudformation.Client, path string) error {
-	templateBody, err := readTemplateBodyFromFile(path)
+	templateBody, err := utils.ReadTemplateBodyFromFile(path)
 	if err != nil {
 		return err
 	}

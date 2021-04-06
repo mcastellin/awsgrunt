@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"awsgrunt/utils"
 	"context"
 	"errors"
 	"fmt"
@@ -85,7 +86,7 @@ func ApplyStack(c *cli.Context) error {
 		}
 	}
 
-	templateBody, err := readTemplateBodyFromFile(cfg.StackTemplateFile)
+	templateBody, err := utils.ReadTemplateBodyFromFile(cfg.StackTemplateFile)
 	if err != nil {
 		return err
 	}

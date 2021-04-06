@@ -1,8 +1,8 @@
-package cli
+package utils
 
 import "io/ioutil"
 
-func readTemplateBodyFromFile(path string) (*string, error) {
+func ReadTemplateBodyFromFile(path string) (*string, error) {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
