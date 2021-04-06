@@ -1,27 +1,31 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
 	cli2 "awsgrunt/cli"
 
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 )
-
-func test(c *cli.Context) error {
-	fmt.Println("Booooom!!")
-	cli2.ParseAWSGruntOptions()
-	return nil
-}
 
 func main() {
 
 	app := &cli.App{
-		Name:   "awsgrunt",
-		Usage:  "work with cloudformation nested stacks",
-		Action: test,
+		Commands: []*cli.Command{
+			{
+				Name:    "conf",
+				Aliases: []string{"c"},
+				Usage:   "Tests the configuration",
+				Action:  cli2.TestConfigurationAction,
+			},
+			{
+				Name:    "upload",
+				Aliases: []string{"u"},
+				Usage:   "Uploads the configured template files to the S3 bucket",
+				Action:  cli2.UploadTemplatesToS3,
+			},
+		},
 	}
 
 	err := app.Run(os.Args)

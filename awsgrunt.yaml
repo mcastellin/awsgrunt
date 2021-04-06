@@ -1,5 +1,6 @@
 ---
 BucketName: mycloudformationstorage1234
-Templates:
+StackName: MyCompanyStack
+TemplateFiles:
   - vpc.yaml
   - jenkins.yaml
