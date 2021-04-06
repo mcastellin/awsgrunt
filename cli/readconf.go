@@ -41,6 +41,12 @@ func ParseAWSGruntOptions() (*GruntConf, error) {
 	if config.StackTemplateFile == "" {
 		config.StackTemplateFile = "main.yaml"
 	}
+
+	// if not specified the TemplatesBucket parameter is injected
+	// with the same value as BucketName
+	if config.Parameters["TemplatesBucket"] == "" {
+		config.Parameters["TemplatesBucket"] = config.BucketName
+	}
 	return &config, nil
 }
 

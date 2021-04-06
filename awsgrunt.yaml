@@ -5,6 +5,5 @@ TemplateFiles:
   - vpc.yaml
   - jenkins.yaml
 Parameters:
-  TemplatesBucket: mycloudformationstorage1234
   AdminKeyPairName: jenkins-admin-key
   NumberOfAZs: 2

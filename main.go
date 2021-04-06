@@ -31,6 +31,11 @@ func main() {
 				Usage:   "Creates or updates the cloudformation stack",
 				Action:  cli2.ApplyStack,
 			},
+			{
+				Name:   "destroy",
+				Usage:  "Deletes the configured stack",
+				Action: cli2.DestroyStack,
+			},
 		},
 	}
 
