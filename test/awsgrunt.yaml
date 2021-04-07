@@ -4,6 +4,11 @@ StackName: MyCompanyStack
 TemplateFiles:
   - vpc.yaml
   - jenkins.yaml
+Capabilities:
+  - CAPABILITY_IAM
 Parameters:
   AdminKeyPairName: jenkins-admin-key
   NumberOfAZs: 2
+Lambdas:
+  - Path: ./mylambda
+    Name: mylambda

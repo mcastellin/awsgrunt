@@ -91,11 +91,17 @@ func ApplyStack(c *cli.Context) error {
 		return err
 	}
 
+	capabilities, err := resolveCapabilities(cfg.Capabilities)
+	if err != nil {
+		return err
+	}
+
 	var stackId string
 	if isUpdate {
 		fmt.Println("Updating existing stack with name", cfg.StackName)
 		output, err := cf.UpdateStack(context.TODO(), &cloudformation.UpdateStackInput{
 			StackName:    &cfg.StackName,
+			Capabilities: *capabilities,
 			TemplateBody: templateBody,
 			Parameters:   prepareCfParameters(cfg.Parameters),
 		})
@@ -108,6 +114,7 @@ func ApplyStack(c *cli.Context) error {
 		fmt.Println("Creating the new stack with name", cfg.StackName)
 		output, err := cf.CreateStack(context.TODO(), &cloudformation.CreateStackInput{
 			StackName:    &cfg.StackName,
+			Capabilities: *capabilities,
 			TemplateBody: templateBody,
 			Parameters:   prepareCfParameters(cfg.Parameters),
 		})
@@ -150,4 +157,25 @@ func prepareCfParameters(params map[string]string) []types.Parameter {
 	}
 
 	return cfParams
+}
+
+func resolveCapabilities(in []string) (*[]types.Capability, error) {
+	resolvedValues := []types.Capability{}
+	for _, capability := range in {
+		var resolved types.Capability
+		switch capability {
+		case "CAPABILITY_IAM":
+			resolved = types.CapabilityCapabilityIam
+		case "CAPABILITY_NAMED_IAM":
+			resolved = types.CapabilityCapabilityNamedIam
+		case "CAPABILITY_AUTO_EXPAND":
+			resolved = types.CapabilityCapabilityAutoExpand
+		default:
+			return nil, fmt.Errorf("Invalid configuration attribute. Capability with name [%s] cannot be resolved.", capability)
+		}
+
+		resolvedValues = append(resolvedValues, resolved)
+	}
+
+	return &resolvedValues, nil
 }

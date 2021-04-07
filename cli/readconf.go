@@ -9,12 +9,19 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
+type Lambda struct {
+	Path string `yaml:"Path"`
+	Name string `yaml:"Name"`
+}
+
 type GruntConf struct {
 	BucketName        string            `yaml:"BucketName"`
 	StackTemplateFile string            `yaml:"StackTemplateFile"`
 	StackName         string            `yaml:"StackName"`
 	TemplateFiles     []string          `yaml:"TemplateFiles"`
+	Capabilities      []string          `yaml:"Capabilities"`
 	Parameters        map[string]string `yaml:"Parameters"`
+	Lambdas           []Lambda          `yaml:"Lambdas"`
 }
 
 func (conf *GruntConf) Parse(data []byte) error {

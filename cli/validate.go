@@ -40,6 +40,8 @@ func ValidateTemplates(c *cli.Context) error {
 }
 
 func validateTemplateFile(client *cloudformation.Client, path string) error {
+
+	fmt.Printf("validating %s...", path)
 	templateBody, err := utils.ReadTemplateBodyFromFile(path)
 	if err != nil {
 		return err
@@ -56,5 +58,6 @@ func validateTemplateFile(client *cloudformation.Client, path string) error {
 		return fmt.Errorf("Validation returned empty results. Template is invalid.:")
 	}
 
+	fmt.Println("ok")
 	return nil
 }
